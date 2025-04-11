@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+import { IsEmail } from 'class-validator';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('otp')
@@ -7,6 +7,7 @@ export class userOtp {
   userId: number;
 
   @Column()
+  @IsEmail()
   email: string;
 
   @Column()

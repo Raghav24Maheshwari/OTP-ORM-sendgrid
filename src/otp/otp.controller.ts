@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable prettier/prettier */
 import { Controller , Body ,Post, HttpStatus,Res} from "@nestjs/common";
 import { Response } from 'express';
 import { OtpService } from "./otp.service";
@@ -38,8 +36,12 @@ export class OtpController {
   if (!body.userId) {
     return res.status(HttpStatus.BAD_REQUEST).json({ message: 'User ID is required' });
   }
+  if (!body.otp) {
+    return res.status(HttpStatus.BAD_REQUEST).json({ message: 'OTP is required' });
+  }
 
-  const result = await this.otpService.verifyOtp(body.userId);
+
+  const result = await this.otpService.verifyOtp(body.userId,body.otp);
   return res.status(result.statusCode ?? HttpStatus.INTERNAL_SERVER_ERROR).json(result);
     }
   }

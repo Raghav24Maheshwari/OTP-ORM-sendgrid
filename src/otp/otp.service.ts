@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, HttpStatus } from "@nestjs/common";
 import { otpGenerator, otpSend } from "src/utils/helper";
 import { OTP_EXPIRY_TIME } from "src/utils/constants";
@@ -30,11 +29,15 @@ export class OtpService {
       message: 'OTP generated successfully',
     };
   }
-  async verifyOtp(userId: number) {
+  async verifyOtp(userId: number, otp: string) {
     const userEntry = await this.userOtpRepository.findOne({ where: { userId } });
 
     if (!userEntry) {
       return { statusCode: HttpStatus.NOT_FOUND, message: 'User ID not found' };
+    }
+
+    if (userEntry.otp !== otp) {
+      return { statusCode: HttpStatus.NOT_FOUND, message: 'otp not found' };
     }
 
     const currentTime = Date.now();

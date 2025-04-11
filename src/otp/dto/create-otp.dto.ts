@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateOtpDto {
   @ApiProperty({ example: 'user123', description: 'The ID of the user' })
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
   userId: number
 
